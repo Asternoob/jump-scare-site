@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Surprise!</title>
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      overflow: hidden;
+    }
+    #scare {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: none;
+      z-index: 9999;
+    }
+    .shake {
+      animation: shake 0.5s infinite;
+    }
+    @keyframes shake {
+      0% { transform: translate(-50%, -50%) translate(0px, 0px); }
+      25% { transform: translate(-50%, -50%) translate(5px, 5px); }
+      50% { transform: translate(-50%, -50%) translate(-5px, -5px); }
+      75% { transform: translate(-50%, -50%) translate(5px, -5px); }
+      100% { transform: translate(-50%, -50%) translate(-5px, 5px); }
+    }
+    .flash {
+      animation: flash 0.1s infinite;
+    }
+    @keyframes flash {
+      0% { background-color: black; }
+      50% { background-color: red; }
+      100% { background-color: black; }
+    }
+  </style>
+</head>
+<body>
+  <div id="scare">
+    <img src="https://media.tenor.com/1cXzV3Q9J4sAAAAC/dancing-cockroach.gif" alt="Dancing Cockroach">
+  </div>
+  <audio id="audio" src="https://audio.com/jace-richardson/audio/low-taper-fade-ahh-beat/download" preload="auto"></audio>
+  <script>
+    window.onload = function() {
+      const audio = document.getElementById('audio');
+      const scare = document.getElementById('scare');
+      audio.play().catch(() => {
+        // Autoplay might be blocked; wait for user interaction
+        document.body.addEventListener('click', () => {
+          audio.play();
+        }, { once: true });
+      });
+      scare.style.display = 'block';
+      scare.classList.add('shake');
+      document.body.classList.add('flash');
+    };
+  </script>
+</body>
+</html>
